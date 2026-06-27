@@ -1,10 +1,10 @@
-# Dual Container Homelab Setup 🚀
+# Dual Container Homelab Setup 
 
 A high-performance, decoupled local development environment that bridges an isolated LLM inference engine with an optimized NVIDIA NGC TensorFlow workspace. This architecture enables real-time, hardware-accelerated AI pair programming (Aider) and Jupyter workflows on local GPU hardware while completely avoiding system dependency fragmentation.
 
 ---
 
-## 🏗️ Architectural Topology
+##  Architectural Topology
 
 When building modern ML workspaces, cramming heavy developer tooling directly into heavily customized framework images (like NVIDIA NGC containers) frequently causes low-level library memory conflicts, resulting in runtime execution errors (`Segmentation Fault`). 
 
@@ -33,7 +33,7 @@ This project solves that limitation by pivoting from a fragile monolith to a **d
 
 ---
 
-## 🛠️ Infrastructure Configuration
+##  Infrastructure Configuration
 
 The repository layout is organized cleanly to enforce operational best practices:
 
@@ -73,10 +73,10 @@ docker run -d --gpus all \
   --name ollama-service \
   ollama/ollama 2>/dev/null || docker start ollama-service
 
-echo "⏱️ Allowing GPU VRAM memory mapping to settle..."
+echo "Allowing GPU VRAM memory mapping to settle..."
 sleep 5
 
-echo "🐳 Launching custom TensorFlow workspace environment..."
+echo "Launching custom TensorFlow workspace environment..."
 docker run --gpus all -it --rm --ipc=host --network=host \
   --ulimit memlock=-1 --ulimit stack=67108864 \
   -p 5000:5000 -p 8888:8888 \
@@ -90,7 +90,7 @@ docker run --gpus all -it --rm --ipc=host --network=host \
 
 ---
 
-## 🚀 Quick Deployment Guide
+##  Quick Deployment Guide
 
 Ensure your host system has the `nvidia-container-toolkit` correctly mapped, then deploy the ecosystem with a single automation wrapper:
 
@@ -115,7 +115,7 @@ Aider will instantly detect the environment injection string, route its payload 
 
 ---
 
-## 🎓 Key Competencies Proven
+##  Key Competencies Proven
 
 This system layout explicitly demonstrates practical engineering skills across several technical domains:
 
