@@ -1,14 +1,19 @@
 #!/bin/bash
 
-echo "🚀 Starting local AI inference service..."
+echo "🚀 Booting background AI inference engine..."
 docker run -d --gpus all \
   -v /home/erebus/my_tf_projects/.ollama:/root/.ollama \
   -p 11434:11434 \
   --name ollama-service \
   ollama/ollama 2>/dev/null || docker start ollama-service
 
-echo "⏱️ Waiting for GPU VRAM layers to initialize..."
-sleep 5
+echo "⏱️ Waiting for Ollama API to be fully responsive..."
+# This loops until Ollama responds with an HTTP 200 status code
+until $(curl --output /dev/null --silent --head --fail http://127.0.0.1:11434); do
+    printf '.'
+    sleep 1
+done
+echo "✅ Ollama is online!"
 
 echo "🐳 Launching custom TensorFlow workspace environment..."
 docker run --gpus all -it --rm --ipc=host --network=host \
