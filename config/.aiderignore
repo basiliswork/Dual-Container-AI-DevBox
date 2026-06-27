@@ -1,0 +1,6 @@
+# Ignore heavy binary PDFs/datasets to prevent repository mapping lag
+**/Professor_PDFs/**
+*.pdf
+*.csv
+*.h5
+*.pkl
