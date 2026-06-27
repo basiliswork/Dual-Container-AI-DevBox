@@ -73,8 +73,13 @@ docker run -d --gpus all \
   --name ollama-service \
   ollama/ollama 2>/dev/null || docker start ollama-service
 
-echo "Allowing GPU VRAM memory mapping to settle..."
-sleep 5
+echo "⏱️ Waiting for Ollama API to be fully responsive..."
+# This loops until Ollama responds with an HTTP 200 status code
+until $(curl --output /dev/null --silent --head --fail http://127.0.0.1:11434); do
+    printf '.'
+    sleep 1
+done
+echo "✅ Ollama is online!"
 
 echo "Launching custom TensorFlow workspace environment..."
 docker run --gpus all -it --rm --ipc=host --network=host \
